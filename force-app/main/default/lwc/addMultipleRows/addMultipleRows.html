@@ -1,0 +1,66 @@
+<template>
+    <lightning-card>
+        <template if:true={valuesList}>
+            
+        <footer class="slds-align_absolute-center">
+            <button class="slds-button slds-button_success slds-m-around_medium btn" onclick={handleSaveForm}>Save</button>
+            <button class="slds-button slds-button_brand slds-m-around_medium btn" onclick={handleSubmitForm}>Submit</button>
+        </footer>
+       
+        <template for:each={valuesList} for:item="item" for:index="index">
+              <div class="slds-grid slds-wrap" key={item.id}>
+
+                    <div class="slds-col slds-size_4-of-12 slds-p-right_small">
+                             <lightning-input type="text" required="true" onchange={handleChangeVal} label="Name"  value={item.field2value}></lightning-input>
+                    </div>
+
+                    <div class="slds-col slds-size_3-of-12 slds-p-right_large">
+                        <template if:true={currentPickslitValues.data}>
+                            <lightning-combobox label={field1Label}
+                                                required="true"
+                                                value={item.field1value}
+                                                options={currentPickslitValues.data.values}
+                                                onchange={handlePicklistChange} ></lightning-combobox>
+
+                        </template>
+                    </div>
+                    <!--div class="slds-col slds-size_4-of-12 slds-p-right_small">
+                             <lightning-input type="number" required="true" onchange={handleChangeVal} label={field2Label}  value={item.field2value}></lightning-input>
+                    </div-->
+                    
+                    <!--div class="slds-col slds-size_7-of-12 slds-p-right_large slds-p-top_medium">
+                        <template if:true={isAdditionalFreeTextExist}>
+                            <lightning-textarea label={additionalFreeTextLabel} onchange={handleAdditionalFreeTextChange}  value={item.additionalFreeText}></lightning-textarea>
+                        </template> 
+                    
+                    </div-->
+                    <div class="slds-col slds-size_4-of-12 slds-p-top_medium">
+                        <template if:true={isFileUpload}>
+                            <div class="slds-grid">
+                                <div class="slds-col slds-size_3-of-6">
+                                    <lightning-input type="file" 
+                                                     accept={acceptedFormats}
+                                                     onchange={handleFilesChanges} multiple>
+                                    </lightning-input>
+                                </div>
+                                <div class="slds-col slds-p-top_large slds-p-left_medium slds-size_3-of-6">
+                                    <template if:true={item.fileNames}> 
+                                        <p>{item.fileNames}</p>
+                                     </template>
+                                </div>
+                            </div>
+                        </template>
+                    </div>
+
+                    <div class="slds-col slds-size_1-of-12 slds-p-top_large">
+                            <lightning-button-icon icon-name="utility:new"  access-key={item.id} id={index}
+                                                variant="border-filled" alternative-text="Add Row"   class="slds-m-left_xx-small new-icon" onclick={addRow}></lightning-button-icon>
+                            <lightning-button-icon icon-name="utility:delete"  access-key={item.id} id={index}
+                                                variant="border-filled" alternative-text="Delete"   class="slds-m-left_xx-small delete-icon" onclick={removeRow}></lightning-button-icon>
+                    </div>
+              </div>
+        </template>
+    </template>
+    </lightning-card>
+    
+</template>

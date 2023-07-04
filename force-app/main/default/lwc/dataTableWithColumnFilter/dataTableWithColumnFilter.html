@@ -1,0 +1,104 @@
+<template>
+    
+    <template if:false={showTable}>
+        <lightning-spinner alternative-text="Loading"></lightning-spinner>
+    </template>
+    <template if:true={showTable}>
+        <div>
+            <div class="slds-grid slds-wrap">
+
+    <!--=======================================================================HEADER AND DATA SECTION =============================================================================-->
+                <div class="slds-col slds-size_4-of-4 slds-chat-message__file_inbound">                                    
+                    <template if:true={showTable}>
+                        <div class="container forceRelatedListSingleContainer" data-aura-class="forceRelatedListSingleContainer">
+                            <article class="slds-card slds-card_boundary forceRelatedListCardDesktop" aria-describedby="header_1168:0" data-aura-class="forceRelatedListCardDesktop">
+                                <div class="slds-grid slds-page-header forceRelatedListCardHeader" data-aura-class="forceRelatedListCardHeader">
+                                    <header class="slds-media slds-media--center slds-has-flexi-truncate">
+                                        <div class="slds-media__figure stencil slds-avatar slds-avatar_small" aria-hidden="true">
+                                            <div class="extraSmall forceEntityIcon" style="background-color: #E6D478" data-aura-class="forceEntityIcon">
+                                                <span class="uiImage" data-aura-class="uiImage">
+                                                    <lightning-icon icon-name="standard:account"></lightning-icon>
+                                                </span>
+                                            </div>
+                                        </div>
+                                        <div class="slds-media__body">
+                                            <h2 class="slds-card__header-title" id="header_1168:0">
+                                                <span class="slds-truncate slds-m-right--xx-small " style="font-weight: var(--lwc-cardFontWeight,700);" title="Notes">
+                                                    Accounts
+                                                </span>                            
+                                            </h2>                                                                                      
+                                        </div>                          
+<!---------------------------- Header Buttons------------------------>                                          
+                                        <div class="slds-float_right slds-align-bottom">													
+                                            
+                                            <lightning-button label="Apply Filters" variant="brand" onclick={handleApplyFilters}> </lightning-button>
+                                            &nbsp;&nbsp;
+                                            <lightning-button label="Clear Filters" variant="brand" onclick={handleClearFilters}> </lightning-button>      
+                                        </div>                                
+                                    </header>
+                                </div>
+<!---------------------------- Filter TextBoxes------------------------>                                          
+
+                                <lightning-layout vertical-align="center">
+                                    
+
+                                    <lightning-layout-item size="12" padding="around-small" small-device-size="6" medium-device-size="6" large-device-size="3">
+                                        <lightning-input type="text" label="Filter Name Column" data-name="nameKey" value={nameKey} onchange={handleNameInput} ></lightning-input>
+                                    </lightning-layout-item>
+
+                                    <lightning-layout-item size="12" padding="around-small" small-device-size="6" medium-device-size="3" large-device-size="3" >
+                                        <lightning-input type="text" label="Filter Country Column" data-name="CountriesKey" value={countrykey} onchange={handleCountryInput} ></lightning-input>
+                                    </lightning-layout-item>
+                                    
+                                    <lightning-layout-item size="12" padding="around-small" small-device-size="6" medium-device-size="6" large-device-size="5">
+                                        <div class="slds-p-raound_xx-small">
+
+                                            <template if:true={industryPicklist.data}>
+
+                                                <lightning-combobox name="Filter Industry Column" label="Filter Industry Column" value={value} options={industryPicklist.data.values} onchange={handleIndustryChange}></lightning-combobox>
+
+                                            </template>
+                                        </div>
+                                        <div class="slds-p-raound_xx-small">
+                                            <template for:each={allValues} for:item="val">
+                                                <lightning-pill key={val} name={val} label={val} onremove={handleRemovePill}></lightning-pill>
+                                            </template>
+                                        </div>
+                                        
+                                    </lightning-layout-item>
+                                
+                                </lightning-layout>
+
+                            </article>
+
+<!----------------------------Data Table ------------------------>                                          
+
+                            <lightning-layout multiple-rows="false" vertical-align="end">
+                                <template if:true={datatable}>
+                                    <lightning-datatable data={datatable}
+                                                    columns={columns}
+                                                    key-field="id"
+                                                    sorted-by={sortBy}
+                                                    sorted-direction={sortDirection}
+                                                    onsort={handleSortTableData}
+                                                    hide-checkbox-column="true"
+                                                    show-row-number-column
+                                                    class="slds-max-medium-table_stacked">
+                                    </lightning-datatable>
+
+                                </template>
+                                <template if:true={errorFlag}>
+                                    <div style='padding-top: 6px;font-weight: bold;padding-left: 48%;padding-bottom: 7px;'>No record Found !!</div>
+
+                                </template>
+                                
+                
+                            </lightning-layout>
+                        </div>
+                    </template>
+                </div>
+            </div>
+        </div>
+    </template> 
+
+</template>

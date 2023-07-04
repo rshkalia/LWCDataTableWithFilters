@@ -1,0 +1,207 @@
+<template>
+    <template if:false={showTable}>
+        <lightning-spinner alternative-text="Loading"></lightning-spinner>
+    </template>
+    <template if:true={showTable}>
+        <div>
+            <div class="slds-grid slds-wrap">
+
+    <!--=======================================================================HEADER AND DATA SECTION =============================================================================-->
+                <div class="slds-col slds-size_3-of-4 slds-chat-message__file_inbound" style="height: 382px;">                                    
+                    <template if:true={showTable}>
+                        <div class="container forceRelatedListSingleContainer" data-aura-class="forceRelatedListSingleContainer">
+                            <article class="slds-card slds-card_boundary forceRelatedListCardDesktop" aria-describedby="header_1168:0" data-aura-class="forceRelatedListCardDesktop">
+                                <div class="slds-grid slds-page-header forceRelatedListCardHeader" data-aura-class="forceRelatedListCardHeader">
+                                    <header class="slds-media slds-media--center slds-has-flexi-truncate">
+                                        <div class="slds-media__figure stencil slds-avatar slds-avatar_small" aria-hidden="true">
+                                            <div class="extraSmall forceEntityIcon" style="background-color: #E6D478" data-aura-class="forceEntityIcon">
+                                                <span class="uiImage" data-aura-class="uiImage">
+                                                    <lightning-icon icon-name="standard:account"></lightning-icon>
+                                                </span>
+                                            </div>
+                                        </div>
+                                        <div class="slds-media__body">
+                                            <h2 class="slds-card__header-title" id="header_1168:0">
+                                                <span class="slds-truncate slds-m-right--xx-small " style="font-weight: var(--lwc-cardFontWeight,700);" title="Notes">
+                                                    Accounts
+                                                </span>                            
+                                            </h2>                                                                                      
+                                        </div>                          
+                                                                                
+                                        <div class="slds-float_right slds-align-bottom">													
+                                            <lightning-button label="Add Filter" onclick={handleAddFilter}> </lightning-button>						
+                                            &nbsp;&nbsp;
+                                            <lightning-button label="Add Filter Logic" onclick={handleAddFilterLogic}> </lightning-button>
+                                            &nbsp;&nbsp;
+                                            <lightning-button label="Apply Filters" variant="brand" onclick={handleApplyFilters}> </lightning-button>
+                                            &nbsp;&nbsp;
+                                            <lightning-button label="Clear Filters" variant="brand" onclick={handleClearFilters}> </lightning-button>      
+                                        </div>                                
+                                    </header>
+                                </div>
+                                
+                                <!--Data section-->
+                                <div style="height: 315px;" class="slds-scrollable">
+                                    <template if:false={isDataListEmpty}>                                    
+                                        <lightning-datatable
+                                            key-field="id"
+                                            data={data}                        
+                                            columns={columns}
+                                            show-row-number-column
+                                            hide-checkbox-column
+                                        >                    
+                                        </lightning-datatable>                            
+                                    </template>
+                                    <template if:true={isDataListEmpty}> 
+                                        <div class="slds-action-overflow--touch__container slds-align--absolute-center">No items to display.</div>
+                                    </template> 
+                                </div>                         
+                                           
+                            </article>
+                        </div>
+                    </template>                                                                        
+                </div>      
+
+    <!--=======================================================================HEADER AND FILTER SECTION =============================================================================-->
+                <div class="slds-col slds-size_1-of-4 slds-chat-message__file_inbound" style="height: 382px;">
+                    <template if:true={showTable}>
+                        <div class="container forceRelatedListSingleContainer" data-aura-class="forceRelatedListSingleContainer">
+                            <article class="slds-card slds-card_boundary forceRelatedListCardDesktop" aria-describedby="header_1168:0" data-aura-class="forceRelatedListCardDesktop">
+                                <div class="slds-grid slds-page-header forceRelatedListCardHeader" data-aura-class="forceRelatedListCardHeader">
+                                    <header class="slds-media slds-media--center slds-has-flexi-truncate">
+                                        <div class="slds-media__figure stencil slds-avatar slds-avatar_small" aria-hidden="true">
+                                            <div class="extraSmall forceEntityIcon" style="background-color: #E6D478" data-aura-class="forceEntityIcon">
+                                                <span class="uiImage" data-aura-class="uiImage">
+                                                    <lightning-icon icon-name="standard:filter"></lightning-icon>
+                                                </span>
+                                            </div>
+                                        </div>
+                                        <div class="slds-media__body">
+                                            <h2 class="slds-card__header-title" id="header_1168:1">
+                                                <span class="slds-truncate slds-m-right--xx-small " style="font-weight: var(--lwc-cardFontWeight,700);" title="Notes">
+                                                    Filter Section
+                                                </span>                            
+                                            </h2>                                                                                      
+                                        </div> 
+                                    </header>
+                                </div>
+                            </article>
+                        </div>                  
+                        <div style="height: 315px;" class="slds-scrollable">
+                            <template if:true={isFilterListEmpty}> 
+                                <div class="slds-action-overflow--touch__container slds-align--absolute-center">No filter applied.</div>
+                            </template>
+                            <template if:false={isFilterListEmpty}>
+                                <template iterator:filter={filters}>
+                                    <div key={filter.value.id} class="slds-box--xx-small" draggable="true" ondragstart={handleDragStart} ondrop={handleDrop} ondragover={handleDragover} data-item={filter.value.id}>                                    
+                                        <lightning-card>
+                                            <lightning-button-icon 
+                                                icon-name="utility:close" 
+                                                variant="container" 
+                                                alternative-text="Remove" 
+                                                onclick={handleFilterRemove} 
+                                                name={filter.index} 
+                                                class="slds-m-left_xx-small slds-email-composer__recipient" 
+                                                title="Remove">
+                                            </lightning-button-icon>
+                                            <p class="slds-p-horizontal_small" onclick={handleEditFilter} data-id={filter.index}>{filter.value.label} {filter.value.operator} {filter.value.searchValue}</p>                                
+                                        </lightning-card>                                                                               
+                                    </div>
+                                </template>
+                            </template> 
+                        </div>    
+                    </template>                     
+                </div>
+        
+        
+    <!--=======================================================================ADD/EDIT FILTER MODAL=============================================================================-->
+        
+                <template if:true={showFilterModal}>                
+                    <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true" aria-describedby="modal-content-id-1" class="slds-modal slds-fade-in-open">
+                        <div class="slds-modal__container">
+                            <header class="slds-modal__header">    
+                                <template if:true={callingFromAddFilter}>
+                                    <h2 id="modal-heading-03" class="slds-modal__title slds-hyphenate">Add Filter</h2>                                    
+                                </template>
+                                <template if:false={callingFromAddFilter}>
+                                    <h2 id="modal-heading-04" class="slds-modal__title slds-hyphenate">Edit Filter</h2>                                    
+                                </template>                                                            
+                            </header>
+                            <div class="slds-modal__content slds-p-around_medium" id="modal-content-id-1">
+                                <lightning-combobox
+                                    name="Field"
+                                    label="Field"
+                                    value={fieldValue}
+                                    placeholder={fieldValue}
+                                    options={fieldOptions}
+                                    onchange={handleFieldChange} >
+                                </lightning-combobox>
+                                <lightning-combobox
+                                    name="Operator"
+                                    label="Operator"
+                                    value={operatorValue}
+                                    placeholder="equals"
+                                    options={operatorOptions}
+                                    onchange={handleOperatorChange} >
+                                </lightning-combobox>
+                                <template if:true={dateInput}>
+                                    <lightning-input type="date" label="Value" value={searchValue} onchange={handleSearchValueChange}></lightning-input>
+                                </template>
+                                <template if:true={otherInput}>
+                                    <lightning-input type="text" label="Value" value={searchValue} onchange={handleSearchValueChange}></lightning-input>
+                                </template>
+                                <template if:true={booleanInput}>
+                                    <lightning-combobox
+                                        name="booleanSearchValueOptions"
+                                        value={searchValue}
+                                        options={booleanSearchValueOptions}
+                                        onchange={handleSearchValueChange} >
+                                    </lightning-combobox>
+                                </template>
+                                
+                            </div>
+                            <footer class="slds-modal__footer">
+                                <div class="slds-grid slds-grid_vertical-align-center">
+                                    <lightning-button label="Cancel" onclick={handleCancel}> </lightning-button>
+                                    &nbsp;
+                                    <template if:true={callingFromAddFilter}>
+                                        <lightning-button label="Done" variant="brand" onclick={handleDone}> </lightning-button>
+                                    </template>
+                                    <template if:false={callingFromAddFilter}>
+                                        <lightning-button label="Done" variant="brand" onclick={handleDone1}> </lightning-button>
+                                    </template>                                                                    
+                                </div>
+                            </footer>
+                        </div>
+                    </section>
+                    <div class="slds-backdrop slds-backdrop_open"></div> 
+                    &nbsp;&nbsp;&nbsp;
+                </template>
+        
+    <!--=======================================================================ADD LOGIC FILTER MODAL=============================================================================-->
+        
+                <template if:true={showAddFilterLogicModal}>
+                    <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true" aria-describedby="modal-content-id-1" class="slds-modal slds-fade-in-open">
+                        <div class="slds-modal__container">
+                            <header class="slds-modal__header">                                    
+                                <h2 id="modal-heading-02" class="slds-modal__title slds-hyphenate">Add Logic Filter</h2>                                    
+                            </header>
+                            <div class="slds-modal__content slds-p-around_medium" id="modal-content-id-2">
+                                <lightning-input type="text" label="Filter Logic" value={logicFilterValue} onchange={handleLogicFilterValueChange}></lightning-input>
+                            </div>
+                            <footer class="slds-modal__footer">
+                                <div class="slds-grid slds-grid_vertical-align-center">
+                                    <lightning-button label="Cancel" onclick={handleAddFilterLogicModalCancel}> </lightning-button>
+                                    &nbsp;
+                                    <lightning-button label="Done" variant="brand" onclick={handleAddFilterLogicModalDone}> </lightning-button>                                    
+                                </div>
+                            </footer>
+                        </div>
+                    </section>
+                    <div class="slds-backdrop slds-backdrop_open"></div>
+                </template> 
+
+            </div> 
+        </div>
+    </template>
+</template>

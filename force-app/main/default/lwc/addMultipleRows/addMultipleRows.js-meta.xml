@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<LightningComponentBundle xmlns="http://soap.sforce.com/2006/04/metadata">
+	<apiVersion>57.0</apiVersion>
+	<isExposed>true</isExposed>
+	<masterLabel>AddMultipleRows</masterLabel>
+	<description>Add Multiple Rows</description>
+	<targets>
+        <target>lightning__FlowScreen</target>
+    </targets>
+     <targetConfigs>
+        <targetConfig targets="lightning__FlowScreen">
+            <property name="field1Label" type="String" label="First Field Label" />
+            <property name="field2Label" type="String" label="Second Field Label" />
+            <property name="isBiologicalDiversityPicklist" type="Boolean" label="Is Biological Diversity Conservation ?"/>
+            <property name="additionalFreeTextLabel" type="String" label="Additional Free Text Label"/>
+            <property name="isAdditionalFreeTextExist" type="Boolean" label="Is Additional Free Text Exist ?"/>
+            <property name="isAttachedFilesExist" type="Boolean" label="Is Attachement Exist ?"/>
+            <property name="AttachementFileLabel" type="String" label="Attachement File Label"/>
+            <property name="pickslistValues" type="String[]" label="Pickslist Values"/>
+            <property name="sectionName" type="String" label="Section Name"/>
+        </targetConfig>
+    </targetConfigs>
+</LightningComponentBundle>

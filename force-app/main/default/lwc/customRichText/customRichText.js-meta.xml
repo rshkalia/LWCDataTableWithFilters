@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<LightningComponentBundle xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>57.0</apiVersion>
+     <isExposed>true</isExposed>
+    <masterLabel>Rich Text Area</masterLabel>
+    <targets>
+        <target>lightning__FlowScreen</target>
+    </targets>
+    <targetConfigs>
+        <targetConfig targets="lightning__FlowScreen">
+            <property name="fieldLabel" label="Field Label" type="String" required="true" default="Rich Text" description="The label of the rich text editor."/>
+            <property name="fieldValue" label="Field Value" type="String" description="The HTML content in the rich text editor." role="outputOnly"/>
+        </targetConfig>
+    </targetConfigs>
+</LightningComponentBundle>

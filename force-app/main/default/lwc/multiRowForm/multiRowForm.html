@@ -1,0 +1,31 @@
+<template>
+
+    <div class="slds-col slds-size_1-of-1 slds-p-left_medium slds-p-bottom_small">
+        <span>Header</span>  
+      </div>
+      <div class="slds-col slds-size_1-of-1 slds-p-left_medium">
+        <span class="additional-quest">NEW</span> 
+      </div>
+      <div class="slds-col slds-size_1-of-1 slds-p-left_large slds-p-bottom_medium">
+        
+            <c-add-multiple-rows field-1-label="Account Source" 
+                                  is-attached-files-exist=true  
+                                  section-name='Add Accounts'  
+                                  additional-free-text-label="Free Text Label" 
+                                  attachement-file-label="Attach Files"
+                                  is-additional-free-text-exist=true 
+                                  is-biological-diversity-picklist=true 
+                                  field-2-label="Number"
+                                  onsectiondetailschange={hanldeSectionInfosChange} >
+            </c-add-multiple-rows>
+        
+        <!--template if:false={resumedApplicationForm.sectionsDetails}>
+            <c-multiple-fields-values field-1-label={label.Biological_Diversity_Conservation_Picklist} is-attached-files-exist=true  section-name='Biological Diversity Conversation'
+                                    additional-free-text-label={label.Biological_Diversity_Conservation_Details} attachement-file-label={label.Attach_Files} is-additional-free-text-exist=true 
+                                    is-biological-diversity-picklist=true field-2-label={label.Number_of_species}
+                                    onsectiondetailschange={hanldeSectionInfosChange} ></c-multiple-fields-values>
+      </template-->
+      </div>  
+
+
+</template>
